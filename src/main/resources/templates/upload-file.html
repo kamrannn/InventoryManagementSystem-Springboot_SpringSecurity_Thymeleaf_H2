@@ -7,6 +7,11 @@
     <title>Upload File</title>
     <link th:replace="fragments/header :: bootstrap-css"/>
 </head>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 <style>
     body {
         font-family: 'Times New Roman', serif;
@@ -44,7 +49,7 @@
         <h1 class="fileUploadingHeading">Upload your file here</h1>
         <br>
         <form method="POST" action="/upload" enctype="multipart/form-data">
-            <input type="file" name="file" accept="application/pdf"/><br/><br/>
+            <input data-toggle="tooltip" title="Only Pdf Files!"  type="file" name="file" accept="application/pdf"/><br/><br/>
             <input class="btn btn-primary" type="submit" value="Submit"/>
         </form>
     </div>

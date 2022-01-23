@@ -6,7 +6,10 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link th:replace="fragments/header :: bootstrap-css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <style>
     body {
         font-family: 'Times New Roman', serif;
@@ -53,9 +56,10 @@
 
 <div class="jumbotron jumbotron-fluid" sec:authorize="isAuthenticated()">
     <div class="container">
-        <a th:href="@{/upload}">
+        <a th:href="@{/upload}" >
             <button type="button" class="btn btn-secondary btn-lg">Upload a File</button>
         </a>
+
         <a th:href="@{/files}" sec:authorize="hasRole('ROLE_ADMIN')">
             <button type="button" class="btn btn-primary btn-lg">List Of Files</button>
         </a>
