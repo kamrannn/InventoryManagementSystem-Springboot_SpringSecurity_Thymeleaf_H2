@@ -1,7 +1,6 @@
 package com.app.InventorySystem.service;
 
 import com.app.InventorySystem.model.File;
-import com.app.InventorySystem.model.dto.ResponseFile;
 import com.app.InventorySystem.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -38,5 +38,14 @@ public class FileService {
 
     public List<File> getAllFilesFromDb() {
         return fileRepository.findAll();
+    }
+
+    public void deleteFile(String fileId) {
+        Optional<File> file = fileRepository.findById(fileId);
+        if (file.isPresent()) {
+            fileRepository.delete(file.get());
+        } else {
+            throw new RuntimeException();
+        }
     }
 }

@@ -15,11 +15,14 @@ public class InventorySystemApplication {
         SpringApplication.run(InventorySystemApplication.class, args);
     }
 
+    /*
+    Creating 2 users whenever the application will run, these are just to test the website
+    functionalities.
+     */
     @Bean
     CommandLineRunner run(UserRepository userRepository, PasswordEncoder bCryptPasswordEncoder) {
         return args -> {
-            /* So, you can use this user to login and only this admin is authenticated to perform all the
-             * actions on this system. Let's test. */
+            //This is an admin
             User admin = new User();
             admin.setFullName("Admin Name");
             admin.setUsername("admin"); //This admin will be created everytime you'll run the application
@@ -28,6 +31,7 @@ public class InventorySystemApplication {
             admin.setRole("ROLE_ADMIN");
             userRepository.save(admin);
 
+            // This is a general user
             User user = new User();
             user.setFullName("General User");
             user.setUsername("user"); //This admin will be created everytime you'll run the application

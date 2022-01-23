@@ -8,6 +8,11 @@
     <link th:replace="fragments/header :: bootstrap-css"/>
 </head>
 <style>
+    body {
+        font-family: 'Times New Roman', serif;
+        color: black;
+    }
+
     .login {
         font-size: 50px;
         font-weight: 500;
@@ -16,6 +21,7 @@
 
 </style>
 <body style="background-color: ghostwhite">
+
 <div th:replace="fragments/header :: header"/>
 <br><br>
 <div class="jumbotron jumbotron-fluid" sec:authorize="isAnonymous()">

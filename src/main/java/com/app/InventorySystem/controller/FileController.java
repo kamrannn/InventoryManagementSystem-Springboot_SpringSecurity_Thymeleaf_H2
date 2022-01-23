@@ -43,7 +43,7 @@ public class FileController {
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
         if (!file.getContentType().equalsIgnoreCase("application/pdf") || file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+            redirectAttributes.addFlashAttribute("message", "Please upload only PDF files");
         } else {
             storageService.store(file);
             redirectAttributes.addFlashAttribute("message",
@@ -78,5 +78,10 @@ public class FileController {
         return "filesList";
     }
 
+    @GetMapping("/file/delete/{id}")
+    public String deleteFile(@PathVariable(name = "id") String fileId) {
+        storageService.deleteFile(fileId);
+        return "redirect:/files";
+    }
 
 }
