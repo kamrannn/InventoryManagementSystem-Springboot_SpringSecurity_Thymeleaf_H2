@@ -28,7 +28,7 @@
     }
 
 </style>
-<body th:style="'background: url(/images/backgroundImage.jpg) no-repeat center center fixed;'">
+<body style="background-color: ghostwhite">
 <div th:replace="fragments/header :: header"/>
 
 <br>
@@ -59,14 +59,7 @@
         <a th:href="@{/files}" sec:authorize="hasRole('ROLE_ADMIN')">
             <button type="button" class="btn btn-primary btn-lg">List Of Files</button>
         </a>
-
-        <!--        <form method="POST" action="/upload" enctype="multipart/form-data" sec:authorize="isAuthenticated()">
-                    <input type="file" name="file" accept="application/pdf"/><br/><br/>
-                    <input type="submit" value="Submit"/>
-                </form>-->
     </div>
-
 </div>
-
 </body>
 </html>

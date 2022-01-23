@@ -46,7 +46,7 @@ public class UserController {
     public String postUserForm(User user) {
         user.setRole("ROLE_USER");
         userService.saveUser(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 }

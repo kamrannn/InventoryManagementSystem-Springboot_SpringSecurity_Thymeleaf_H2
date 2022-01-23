@@ -1,13 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Upload File</title>
+    <link th:replace="fragments/header :: bootstrap-css"/>
 </head>
-<body>
-<form method="POST" action="/upload" enctype="multipart/form-data">
-    <input type="file" name="file" accept="application/pdf"/><br/><br/>
-    <input type="submit" value="Submit"/>
-</form>
+<style>
+    .fileUploadingHeading {
+        font-size: 35px;
+        font-weight: 500;
+        font-family: fantasy;
+    }
+    #element1 {
+        display:inline-block;
+        margin-right:10px;
+        width:200px;
+    }
+    #element2 {
+        display:inline-block;
+        width:200px;
+    }
+
+</style>
+<body style="background-color: ghostwhite">
+<div th:replace="fragments/header :: header"/>
+<br><br>
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+    <hr>
+</div>
+
+<div class="jumbotron jumbotron-fluid" sec:authorize="isAuthenticated()">
+    <div class="container">
+        <h1 class="fileUploadingHeading">Upload your file here</h1>
+        <br>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="file" accept="application/pdf"/><br/><br/>
+            <input class="btn btn-primary" type="submit" value="Submit"/>
+        </form>
+    </div>
+    <div class="container">
+        <hr>
+        <a id="element1" th:href="@{/}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">Back to Homepage</a>
+        <a id="element2" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/files}" class="btn btn-success btn-sm active"
+           role="button" aria-pressed="true">Back to Files List</a>
+        <hr>
+    </div>
+
+</div>
+
+
 </body>
 </html>

@@ -1,14 +1,55 @@
 <!DOCTYPE html >
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Files list</title>
+    <link th:replace="fragments/header :: bootstrap-css"/>
 </head>
-<body>
-<div class="container">
+<style>
+    .filesList {
+        font-size: 35px;
+        font-weight: 500;
+        font-family: fantasy;
+    }
+</style>
+
+<body style="background-color: ghostwhite">
+<div th:replace="fragments/header :: header"/>
+<div class="jumbotron jumbotron-fluid" sec:authorize="isAuthenticated()">
+    <div class="container">
+        <h1 class="filesList">Files List</h1>
+        <br>
+        <table border="1" class="table table-striped table-responsive-md">
+            <thead>
+            <tr>
+                <th>File Id</th>
+                <th>File Name</th>
+                <th>File Type</th>
+                <th>File Size(KB's)</th>
+                <th>Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="file : ${filesList}">
+                <td th:text="${file.id}"></td>
+                <td th:text="${file.name}"></td>
+                <td th:text="${file.type}"></td>
+                <td th:text="${file.size}"></td>
+                <td>
+                    <a th:href="@{/files/single/{id}(id=${file.id})}" class="btn btn-primary">Download</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <a th:href="@{/}"> Back to Homepage</a>
+        <hr>
+    </div>
+</div>
+
+<!--<div class="container">
     <br>
     <hr>
     <h2 style="text-align: center">List Of Files</h2>
@@ -41,6 +82,6 @@
     <a th:href="@{/}"> Back to Homepage</a>
     <hr>
 
-</div>
+</div>-->
 </body>
 </html>

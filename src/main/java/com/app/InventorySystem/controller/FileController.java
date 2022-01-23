@@ -5,6 +5,7 @@ import com.app.InventorySystem.model.dto.ResponseFile;
 import com.app.InventorySystem.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ public class FileController {
         File fileDB = storageService.getFile(id);
 
         return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/pdf"))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
                 .body(fileDB.getData());
     }
@@ -42,19 +44,18 @@ public class FileController {
     public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
         if (!file.getContentType().equalsIgnoreCase("application/pdf") || file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:uploadStatus";
         } else {
             storageService.store(file);
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
-            return "redirect:/uploadStatus";
         }
+        return "redirect:/uploadStatus";
     }
 
 
     @GetMapping("/uploadStatus")
     public String uploadStatus() {
-        return "uploadStatus";
+        return "upload-file";
     }
 
     @GetMapping("/files")
