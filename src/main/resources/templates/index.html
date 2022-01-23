@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link th:replace="fragments/header :: bootstrap-css"/>
+</head>
+<style>
+    body {
+        font-family: 'Times New Roman', serif;
+        color: black;
+    }
+
+    p {
+        font-size: large;
+    }
+
+    .headingInventory {
+        font-size: 45px;
+        font-weight: 500;
+        font-family: fantasy;
+    }
+
+    .paragraphInventory {
+        font-size: 21px;
+    }
+
+</style>
+<body th:style="'background: url(/images/backgroundImage.jpg) no-repeat center center fixed;'">
+<div th:replace="fragments/header :: header"/>
+
+<br>
+<div class="jumbotron jumbotron-fluid" sec:authorize="isAnonymous()">
+    <div class="container">
+        <h1 class="headingInventory">Inventory Management System</h1>
+        <p class="paragraphInventory">Inventory management software is a software system for tracking inventory levels,
+            orders, sales and deliveries.[1] It can also be used in the manufacturing industry to
+            create a work order, bill of materials and other production-related documents.
+            Companies use inventory management software to avoid product overstock and outages.
+            It is a tool for organizing inventory data that before was generally stored in hard-copy
+            form or in spreadsheets.</p>
+        <br>
+        <a th:href="@{/register}">
+            <button type="button" class="btn btn-secondary btn-lg">Signup</button>
+        </a>
+        <a th:href="@{/login}">
+            <button type="button" class="btn btn-primary btn-lg">Login</button>
+        </a>
+    </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid" sec:authorize="isAuthenticated()">
+    <div class="container">
+        <a th:href="@{/upload}">
+            <button type="button" class="btn btn-secondary btn-lg">Upload a File</button>
+        </a>
+        <a th:href="@{/files}" sec:authorize="hasRole('ROLE_ADMIN')">
+            <button type="button" class="btn btn-primary btn-lg">List Of Files</button>
+        </a>
+
+        <!--        <form method="POST" action="/upload" enctype="multipart/form-data" sec:authorize="isAuthenticated()">
+                    <input type="file" name="file" accept="application/pdf"/><br/><br/>
+                    <input type="submit" value="Submit"/>
+                </form>-->
+    </div>
+
+</div>
+
+</body>
+</html>
