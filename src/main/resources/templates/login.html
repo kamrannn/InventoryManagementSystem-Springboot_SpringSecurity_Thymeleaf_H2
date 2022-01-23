@@ -30,9 +30,11 @@
         <br>
         <p th:if="${loginError}" class="error">Wrong user or password</p>
         <form action="#" th:action="@{/login}" method="POST">
+            <label>Username:</label>
             <input type="text" id="username" name="username" placeholder="User Name" class="form-control mb-4 col-4">
 
-            <input type="password" id="password" name="password" class="form-control mb-4 col-4">
+            <label>Password:</label>
+            <input type="password" id="password" placeholder="Password" name="password" class="form-control mb-4 col-4">
 
             <button type="submit" class="btn btn-info col-2"> Log In</button>
             <a th:href="@{/register}" class="btn btn-primary col-2">Signup</a>

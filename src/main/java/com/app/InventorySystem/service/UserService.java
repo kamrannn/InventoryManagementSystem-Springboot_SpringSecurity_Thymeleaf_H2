@@ -2,8 +2,6 @@ package com.app.InventorySystem.service;
 
 import com.app.InventorySystem.model.User;
 import com.app.InventorySystem.repository.UserRepository;
-import org.springframework.stereotype.Service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,9 +44,17 @@ public class UserService implements UserDetailsService {
     public void saveUser(User user) {
         user.setPassword(bcryptEncoder.encode(user.getPassword()));
         userRepository.save(user);
-
     }
 
+    public Optional<User> getUserByEmail(String email) {
+        Optional<User> user = userRepository.findUserByEmail(email);
+        return user;
+    }
+
+    public Optional<User> getUserByUsername(String username) {
+        Optional<User> user = userRepository.findUserByUsername(username);
+        return user;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

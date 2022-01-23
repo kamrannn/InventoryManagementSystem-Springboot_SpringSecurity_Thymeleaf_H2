@@ -5,9 +5,12 @@ import com.app.InventorySystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -43,10 +46,20 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String postUserForm(User user) {
+    public String postUserForm(@Valid User user, BindingResult bindingResult) {
+        if (userService.getUserByEmail(user.getEmail()).isPresent()) {
+            bindingResult.rejectValue("email", null, "There is already an mentee account registered with that email");
+        }
+        if (userService.getUserByUsername(user.getUsername()).isPresent()) {
+            bindingResult.rejectValue("username", null, "There is already an user account registered with that username");
+        }
         user.setRole("ROLE_USER");
-        userService.saveUser(user);
-        return "redirect:/login";
-    }
 
+        if (bindingResult.hasErrors()) {
+            return "register";
+        } else {
+            userService.saveUser(user);
+            return "redirect:/login";
+        }
+    }
 }

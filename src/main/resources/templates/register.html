@@ -31,12 +31,16 @@
         <br>
         <form action="#" th:action="@{/register}" th:object="${user}" method="POST">
             <input type="text" th:field="*{fullName}" placeholder="Full Name" class="form-control mb-4 col-4">
+            <p style="color: red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Full name issue</p>
 
             <input type="text" th:field="*{username}" placeholder="username" class="form-control mb-4 col-4">
+            <p style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username issue</p>
 
             <input type="text" th:field="*{email}" placeholder="Email" class="form-control mb-4 col-4">
+            <p style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email issue</p>
 
             <input type="text" th:field="*{password}" placeholder="Password" class="form-control mb-4 col-4">
+            <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password issue</p>
 
             <button type="submit" class="btn btn-info col-2"> Register</button>
             <a th:href="@{/login}" class="btn btn-primary col-2">Login</a>

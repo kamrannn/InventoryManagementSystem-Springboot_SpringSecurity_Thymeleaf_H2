@@ -52,7 +52,6 @@ public class FileController {
         return "redirect:/uploadStatus";
     }
 
-
     @GetMapping("/uploadStatus")
     public String uploadStatus() {
         return "upload-file";
