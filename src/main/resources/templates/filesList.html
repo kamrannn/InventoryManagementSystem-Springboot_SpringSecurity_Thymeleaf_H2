@@ -27,6 +27,12 @@
     <div class="container">
         <h1 class="filesList">Files List</h1>
         <br>
+        <form th:action="@{/search}" method="get" style="float: right;margin: 20px;display:flex;">
+            <input type="text" id="fileName" placeholder="Find by file name" name="fileName" size="20"/>
+            <br>
+            <button type="submit" class="btn btn-info btn-sm" style="margin-left: 5px">Search</button>
+        </form>
+        <br><br>
         <table border="2" class="table table-bordered table-responsive-md">
             <thead>
             <tr>

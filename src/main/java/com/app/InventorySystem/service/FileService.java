@@ -40,6 +40,10 @@ public class FileService {
         return fileRepository.findAll();
     }
 
+    public List<File> getFilesByNameContaining(String fileName) {
+        return fileRepository.findAllByNameContaining(fileName);
+    }
+
     public void deleteFile(String fileId) {
         Optional<File> file = fileRepository.findById(fileId);
         if (file.isPresent()) {

@@ -77,6 +77,26 @@ public class FileController {
         return "filesList";
     }
 
+    @GetMapping("/search")
+    public String getFilesByNameContaining(@RequestParam(name = "fileName") String fileName, Model model) {
+        List<File> files = storageService.getFilesByNameContaining(fileName);
+        List<ResponseFile> responseFilesList = new ArrayList<>();
+        for (File file : files
+        ) {
+            String fileDownload = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/").path(file.getId()).toUriString();
+            ResponseFile responseFile = new ResponseFile();
+            responseFile.setId(file.getId());
+            responseFile.setUrl(fileDownload);
+            responseFile.setName(file.getName());
+            responseFile.setSize(file.getData().length);
+            responseFile.setType(file.getType());
+            responseFilesList.add(responseFile);
+        }
+
+        model.addAttribute("filesList", responseFilesList);
+        return "filesList";
+    }
+
     @GetMapping("/file/delete/{id}")
     public String deleteFile(@PathVariable(name = "id") String fileId) {
         storageService.deleteFile(fileId);
